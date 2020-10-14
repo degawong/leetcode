@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:25
+ * @LastEditTime: 2020-10-14 17:11:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0019\0019.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -14,23 +15,61 @@
 
 using namespace std;
 
-class Solution {
-public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
-			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
-		}
-		return result;
-    }
+struct ListNode
+{
+	int val;
+	ListNode *next;
+	ListNode() : val(0), next(nullptr) {}
+	ListNode(int x) : val(x), next(nullptr) {}
+	ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+
+class Solution
+{
+public:
+	ListNode *removeNthFromEnd(ListNode *head, int n) {
+		ListNode* dummy = new ListNode(0);
+		dummy->next = head;
+		auto fast = dummy;
+		auto slow = dummy;
+		for (int i = 0; i < n; ++i) {
+			fast = fast->next;
+		}
+		while (fast->next != nullptr) {
+			fast = fast->next;
+			slow = slow->next;
+		}
+		slow->next = slow->next->next;
+		auto ret = dummy->next;
+		delete dummy;
+		return ret;
+	}
+};
+
+//class Solution {
+//public:
+//    ListNode* removeNthFromEnd(ListNode* head, int n) {
+//        ListNode* dummy = new ListNode(0);  //哑节点
+//        if(!head)  return head;
+//        dummy->next = head;
+//        ListNode* p = dummy;
+//        ListNode* q = dummy;
+//        for(int i=0; i<n;i++)
+//        {
+//        q=q->next;
+//        }
+//        while(q->next)
+//        {
+//           p= p->next;
+//           q= q->next;
+//        }
+//        p->next = p->next->next;  //删除p->next的节点
+//   
+//        ListNode* res = dummy->next;
+//        delete dummy;   //删除哑节点
+//        return res;
+//
+//    }
+//};
+
+// 链接：https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/solution/cgao-xiao-jie-fa-shan-chu-di-nge-jie-dian-by-tarax/
