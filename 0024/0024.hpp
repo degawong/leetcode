@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:25
+ * @LastEditTime: 2020-10-14 18:44:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0024\0024.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -14,23 +15,30 @@
 
 using namespace std;
 
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
-			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+    ListNode* swapPairs(ListNode* head) {
+		auto dummy = new ListNode{0};
+		dummy->next = head;
+		auto temp = dummy;
+		while((temp->next != nullptr) && (temp->next->next != nullptr)) {
+			auto left = temp->next;
+			auto right = temp->next->next;
+			left->next = right->next;
+			right->next = left;
+			temp->next = right;
+			temp = left;
 		}
-		return result;
+		auto ret = dummy->next;
+		delete dummy;
+		return ret;
     }
 };
