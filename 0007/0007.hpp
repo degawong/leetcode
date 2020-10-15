@@ -1,12 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:25
+ * @LastEditTime: 2020-10-15 16:46:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0007\0007.hpp
  */
-#include <cmath>
+
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -16,21 +16,19 @@ using namespace std;
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
-			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
-		}
-		return result;
+    int reverse(int x) {
+        if(x / 10 == 0) return x;
+        int ret = 0;
+        while(x != 0) {
+			// if the ret is INT_MIN or INT_MAX, the value x % 10 should small than 2
+			// so it works well
+            if(ret > INT_MAX / 10 || ret < INT_MIN / 10)
+                return 0;
+            ret = 10 * ret + x % 10;
+            x /= 10;
+        }
+        return ret;
     }
 };
+
+
