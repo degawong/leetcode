@@ -1,12 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2020-09-30 14:48:53
- * @LastEditTime: 2020-10-20 11:25:34
+ * @LastEditTime: 2020-10-20 11:32:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \leetcode\main.cpp
  */
 
+#include <vector>
 #include <iostream>
 
 #include <0198.hpp>
