@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-19 15:11:28
+ * @LastEditTime: 2020-10-21 18:47:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0002\0002.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -14,23 +15,52 @@
 
 using namespace std;
 
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode() : val(0), next(nullptr) {}
+	ListNode(int x) : val(x), next(nullptr) {}
+	ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        auto dummy = new ListNode(0);
+		auto ret = dummy;
+		int carry_bit = 0;
+		while(l1 != nullptr || l2 != nullptr) {
+			if(l1 == nullptr) {
+				if(carry_bit == 1 && l2->val == 9) {
+					l2->val = 0;
+					carry_bit = 1;
+				} else {
+					l2->val += carry_bit;
+					carry_bit = 0;
+				}
+				ret->next = l2;
+				l2 = l2->next;				
+			} else if(l2 == nullptr) {
+				if(carry_bit == 1 && l1->val == 9) {
+					l1->val = 0;
+					carry_bit = 1;
+				} else {
+					l1->val += carry_bit;
+					carry_bit = 0;
+				}
+				ret->next = l1;
+				l1 = l1->next;		
+			} else {
+				auto temp = (l1->val + l2->val + carry_bit);
+				l1->val = temp % 10;
+				carry_bit = (temp >= 10) ? 1 : 0;
+				ret->next = l1;
+				l1 = l1->next;
+				l2 = l2->next;
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+			ret = ret->next;
 		}
-		return result;
+		if(carry_bit == 1) ret->next = new ListNode(1);
+		return dummy->next;
     }
 };
