@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:26
+ * @LastEditTime: 2020-10-20 16:02:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0120\0120.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -13,24 +14,19 @@
 #include <unordered_set>
 
 using namespace std;
-
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    int minimumTotal(vector<vector<int>>& triangle) {	
+		int ret = INT_MAX;
+		if(triangle.size() == 0) return 0;
+		for(int i = 1; i < triangle.size(); ++i) {
+			for(int j = 0; j < triangle[i].size(); ++j) {
+				triangle[i][j] += min(triangle[i - 1][min(max(0, j), int(triangle[i - 1].size() - 1))], triangle[i - 1][min(max(0, j - 1), int(triangle[i - 1].size() - 1))]);
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
 		}
-		return result;
+		for(int i = 0; i < triangle[triangle.size() - 1].size(); ++i) {
+			ret = min(ret, triangle[triangle.size() - 1][i]);
+		}
+		return ret;
     }
 };

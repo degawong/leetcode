@@ -1,12 +1,14 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:27
+ * @LastEditTime: 2020-10-21 13:45:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0199\0199.hpp
  */
+
 #include <cmath>
+#include <deque>
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -14,23 +16,36 @@
 
 using namespace std;
 
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    vector<int> rightSideView(TreeNode* root) {
+		vector<int> ret;
+		deque<TreeNode*> dq;
+		vector<vector<int>> traversal;
+		if(root == nullptr) return ret;
+		dq.push_front(root);
+		while(!dq.empty()) {
+			auto size = dq.size();
+			traversal.push_back(vector<int>());
+			for(int i = 0; i < size; ++i) {
+				auto node = dq.back(); dq.pop_back();
+				traversal.back().push_back(node->val);
+				if(node->right != nullptr)
+					dq.push_front(node->right);
+				if(node->left != nullptr)
+					dq.push_front(node->left);
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
 		}
-		return result;
+		for(auto level : traversal) {
+			ret.push_back(level[0]);
+		}
+		return ret;
     }
 };

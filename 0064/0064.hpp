@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:26
+ * @LastEditTime: 2020-10-20 15:26:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0064\0064.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -16,21 +17,23 @@ using namespace std;
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
-			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+    int minPathSum(vector<vector<int>>& grid) {
+		if(grid.size() == 0) return 0;
+		int row = grid.size();
+		int col = grid[0].size();
+		vector<vector<int>> dp(row, vector<int>(col));
+		dp[0][0] = grid[0][0];
+		for(int i = 1; i < col; ++i) {
+			dp[0][i] = grid[0][i] + dp[0][i - 1];
 		}
-		return result;
+		for(int i = 1; i < row; ++i) {
+			dp[i][0] = grid[i][0] + dp[i - 1][0];
+		}
+		for(int i = 1; i < row; ++i) {
+			for(int j = 1; j < col; ++j) {
+				dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+			}
+		}
+		return dp[row - 1][col - 1];
     }
 };

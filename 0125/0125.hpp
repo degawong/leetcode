@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:26
+ * @LastEditTime: 2020-10-22 18:07:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0125\0125.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -16,21 +17,31 @@ using namespace std;
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    bool isPalindrome(string s) {
+		if(s.size() == 0) return true;
+		int left = 0;
+		int right = s.size() - 1;
+		while(left < right) {
+			if(!__is_word(s[left])) {
+				++left;
+				continue;
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
+			if(!__is_word(s[right])) {
+				--right;
+				continue;
 			}
-			result = max(next - i + 1, result);
+			if(!__is_equal(s[left], s[right])) return false;
+			left += 1;
+			right -= 1;
 		}
-		return result;
+		return true;
     }
+private:
+	bool __is_word(const char c) {
+		return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
+	}
+	bool __is_equal(const char _left, const char _right) {
+		if(_left >= '0' && _left <= '9') return (abs(_left - _right) == 0);
+		else return ((abs(_left - _right) == 0) || abs(_left - _right) == 32);
+	}
 };

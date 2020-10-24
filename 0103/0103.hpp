@@ -1,12 +1,15 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:26
+ * @LastEditTime: 2020-10-19 16:41:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0103\0103.hpp
  */
+
 #include <cmath>
+#include <deque>
+#include <queue>
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -14,23 +17,39 @@
 
 using namespace std;
 
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        deque<TreeNode*> q;
+		vector<vector<int>> ret;
+		if(root == nullptr) return ret;
+		q.push_back(root);
+		bool zigzag_order = false;
+		while(!q.empty()) {
+			auto size = q.size();
+			TreeNode* node = nullptr;
+			ret.push_back(vector<int>());
+			for(int i = 0; i < size; ++i) {
+				if(zigzag_order) {
+					node = q.back(); q.pop_back();
+					if(node->right != nullptr) q.push_front(node->right);					
+					if(node->left != nullptr) q.push_front(node->left);
+				} else {
+					node = q.front(); q.pop_front();
+					if(node->left != nullptr) q.push_back(node->left);
+					if(node->right != nullptr) q.push_back(node->right);
+				}
+				ret.back().push_back(node->val);
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+			zigzag_order = !zigzag_order;
 		}
-		return result;
+		return ret;
     }
 };

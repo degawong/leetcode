@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:26
+ * @LastEditTime: 2020-10-16 11:30:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0080\0080.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -16,21 +17,20 @@ using namespace std;
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    int removeDuplicates(vector<int>& nums) {
+		if(nums.size() ==0) return 0;
+		auto back = 0;
+		auto front = 0;
+		while(front < nums.size()) {
+			auto i = front;
+			auto j = front;
+			while((j < nums.size()) && (nums[i] == nums[j])) ++j;
+			for(int k = 0; k < min(2, j - i); ++k) {
+				nums[back++] = nums[j - 1];
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+			front = j;
 		}
-		return result;
+		nums.erase(nums.begin() + back, nums.end());
+		return nums.size();
     }
 };
