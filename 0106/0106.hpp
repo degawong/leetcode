@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:26
+ * @LastEditTime: 2020-10-26 15:00:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0106\0106.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -14,23 +15,31 @@
 
 using namespace std;
 
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+ 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+		int index = 0;
+		if(inorder.size() == 0) return nullptr;
+		if(inorder.size() == 1) return new TreeNode(postorder[postorder.size() - 1]);
+		for(int i = 0; i < inorder.size(); ++i) {
+			if(inorder[i] == postorder[postorder.size() - 1]) {
+				index = i;
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
 		}
-		return result;
+		vector<int> left_in{ inorder.begin(), inorder.begin() + index};		
+		vector<int> right_in{ inorder.begin() + index + 1, inorder.end() };
+		vector<int> left_post{ postorder.begin(), postorder.begin() + index};
+		vector<int> right_post{ postorder.begin() + index, postorder.end() - 1};
+		auto node = new TreeNode(postorder[postorder.size() - 1]);
+		node->left = buildTree(left_in, left_post);
+		node->right = buildTree(right_in, right_post);
+		return node;
     }
 };
