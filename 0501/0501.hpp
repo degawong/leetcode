@@ -1,36 +1,50 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:29
+ * @LastEditTime: 2020-10-27 15:55:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0501\0501.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
 #include <algorithm>
 #include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
-			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+    vector<int> findMode(TreeNode* root) {
+		max = 0;
+		vector<int> ret;
+		preorder(root);
+		for(auto& u : um) {
+			if(u.second == max)
+				ret.push_back(u.first);
 		}
-		return result;
+		return ret;
     }
+private:
+	void preorder(TreeNode* root) {
+		if(root == nullptr) return;
+		++um[root->val];
+		if(max < um[root->val])
+			max = um[root->val];
+		preorder(root->left);
+		preorder(root->right);
+	}
+private:
+	int max;
+	unordered_map<int, int> um;
 };
