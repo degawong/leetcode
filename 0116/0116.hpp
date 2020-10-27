@@ -1,12 +1,15 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:26
+ * @LastEditTime: 2020-10-27 09:22:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0116\0116.hpp
  */
+
 #include <cmath>
+#include <deque>
+#include <queue>
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -14,23 +17,36 @@
 
 using namespace std;
 
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+    Node() : val(0), left(nullptr), right(nullptr), next(nullptr) {}
+    Node(int _val) : val(_val), left(nullptr), right(nullptr), next(nullptr) {}
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    Node* connect(Node* root) {
+		deque<Node*> dq;
+        if(root == nullptr) return nullptr;
+		dq.push_back(root);
+		while(!dq.empty()) {
+			auto size = dq.size();
+			for(int i = 0; i < size; ++i) {
+				auto node = dq.front();
+				dq.pop_front();
+				if(i < size - 1) {
+					node->next = dq.front();
+				}
+				if(node->left != nullptr) dq.push_back(node->left);
+				if(node->right != nullptr) dq.push_back(node->right);
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
 		}
-		return result;
+		return root;
     }
 };
