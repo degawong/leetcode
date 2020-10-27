@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 16:04:28
- * @LastEditTime: 2020-10-27 14:50:15
+ * @LastEditTime: 2020-10-27 14:54:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \leetcode\0337\0337.hpp
@@ -39,5 +39,5 @@ private:
         dfs(node->right);
         f[node] = node->val + g[node->left] + g[node->right];
         g[node] = max(f[node->left], g[node->left]) + max(f[node->right], g[node->right]);
-    }	
+    }
 };
