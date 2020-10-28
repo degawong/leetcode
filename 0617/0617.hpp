@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:30
+ * @LastEditTime: 2020-10-28 11:27:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0617\0617.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -14,23 +15,34 @@
 
 using namespace std;
 
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
-			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+		TreeNode* ret = nullptr;
+		if(t1 == nullptr && t2 == nullptr) return ret;
+		if(t1 == nullptr) {
+			ret = t2;
+			ret->left = mergeTrees(nullptr, t2->left);
+			ret->right = mergeTrees(nullptr, t2->right);
 		}
-		return result;
+		else if(t2 == nullptr) {
+			ret = t1;
+			ret->left = mergeTrees(t1->left, nullptr);
+			ret->right = mergeTrees(t1->right, nullptr);
+		}
+		else {
+			t1->val += t2->val;
+			ret = t1;
+			ret->left = mergeTrees(t1->left, t2->left);
+			ret->right = mergeTrees(t1->right, t2->right);
+		}
+		return ret;
     }
 };
