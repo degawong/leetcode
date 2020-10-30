@@ -1,12 +1,14 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:29
+ * @LastEditTime: 2020-10-30 14:30:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0445\0445.hpp
  */
+
 #include <cmath>
+#include <deque>
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -14,23 +16,56 @@
 
 using namespace std;
 
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode(int x) : val(x), next(nullptr) {}
+};
+
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+		int carry = 0;
+		ListNode* ret = nullptr;
+		vector<ListNode*> v_1;
+		vector<ListNode*> v_2;
+		if(l1 == nullptr && l2 == nullptr) return nullptr; 
+		while(l1 != nullptr || l2 != nullptr) {
+			if(l1 != nullptr) {
+				v_1.push_back(l1);
+				l1 = l1->next;
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+			if(l2 != nullptr) {
+				v_2.push_back(l2);
+				l2 = l2->next;
+			}	
 		}
-		return result;
+		int s1 = v_1.size();
+		int s2 = v_2.size();
+		for(int i = 0; i < max(v_1.size(), v_2.size()); ++i) {
+			int res = 0;
+			if((i < v_1.size()) && (i < v_2.size())) {
+				auto temp = v_1[s1 - 1 - i]->val + v_2[s2 - 1 - i]->val + carry;
+				res = (temp) % 10;
+				carry = (temp) / 10;
+			} else if(i >= v_1.size()) {
+				auto temp = v_2[s2 - 1 - i]->val + carry;
+				res = (temp) % 10;				
+				carry = (temp) / 10;				
+			} else if(i >= v_2.size()) {
+				auto temp = v_1[s1 - 1 - i]->val + carry;
+				res = (temp) % 10;			
+				carry = (temp) / 10;				
+			}
+			auto node = new ListNode(res);
+			node->next = ret;
+			ret = node;
+		}
+		if(carry == 1) {
+			auto node = new ListNode(1);
+			node->next = ret;
+			ret = node;
+		}
+		return ret;
     }
 };
