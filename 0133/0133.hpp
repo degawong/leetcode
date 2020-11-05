@@ -1,36 +1,77 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:26
+ * @LastEditTime: 2020-11-05 11:34:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0133\0133.hpp
  */
+
 #include <cmath>
+#include <deque>
+#include <queue>
 #include <string>
 #include <iostream>
 #include <algorithm>
 #include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+    
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+    
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+    
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
-			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
-		}
-		return result;
+    unordered_map<Node*, Node*> um;
+    Node* cloneGraph(Node* node) {
+		// dfs
+        if (node == nullptr) return node;
+        if (um.find(node) != um.end()) {
+            return um[node];
+        }
+        auto ret = new Node(node->val);
+        um[node] = ret;
+        for (auto& neighbor : node->neighbors) {
+            ret->neighbors.emplace_back(cloneGraph(neighbor));
+        }
+        return ret;	
+    }
+    Node* cloneGraph(Node* node) {
+		// bfs
+        queue<Node*> q;		
+        if (node == nullptr) return node;
+        unordered_map<Node*, Node*> um;
+        q.push(node);
+        um[node] = new Node(node->val);
+        while (!q.empty()) {
+            auto n = q.front(); q.pop();            
+            for (auto& neighbor : n->neighbors) {
+                if (um.find(neighbor) == um.end()) {
+                    um[neighbor] = new Node(neighbor->val);
+                    q.push(neighbor);
+                }
+                um[n]->neighbors.emplace_back(um[neighbor]);
+            }
+        }
+        return um[node];	
     }
 };
