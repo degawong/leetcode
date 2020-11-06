@@ -1,13 +1,15 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:26
+ * @LastEditTime: 2020-11-06 13:47:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0165\0165.hpp
  */
+
 #include <cmath>
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <algorithm>
 #include <unordered_set>
@@ -16,21 +18,23 @@ using namespace std;
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
-			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+    int compareVersion(string version1, string version2) {
+		string item_1;
+		string item_2;		
+		stringstream s1(version1);
+		stringstream s2(version2);
+		while(1) {
+			getline(s1, item_1, '.');
+			getline(s2, item_2, '.');
+			if(item_1.size() == 0 && item_2.size() == 0) return 0;
+			auto _1 = item_1.size() > 0 ? stoi(item_1) : 0;
+			auto _2 = item_2.size() > 0 ? stoi(item_2) : 0;
+			item_1.clear();
+			item_2.clear();
+			if(_1 == _2) continue;
+			if(_1 > _2) return 1;
+			if(_1 < _2) return -1;
 		}
-		return result;
+		return 0;
     }
 };
