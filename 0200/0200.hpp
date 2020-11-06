@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:27
+ * @LastEditTime: 2020-11-06 09:24:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0200\0200.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -16,21 +17,29 @@ using namespace std;
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    int numIslands(vector<vector<char>>& grid) {
+		int ret = 0;
+		if(grid.size() == 0 || grid[0].size() == 0) return ret;
+		for(int i = 0; i < grid.size(); ++i) {
+			for(int j = 0; j < grid[0].size(); ++j) {
+				if(grid[i][j] == '1') {
+					++ret;
+					dfs(grid, i, j);
+				}
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
 		}
-		return result;
+		return ret;
     }
+private:
+	void dfs(vector<vector<char>>& grid, int i, int j) {
+		grid[i][j] = '0';
+		auto p_i = max(0, i - 1);
+		auto p_j = max(0, j - 1);		
+		auto n_i = min(i + 1, int(grid.size()) - 1);
+		auto n_j = min(j + 1, int(grid[0].size()) - 1);
+		if(grid[p_i][j] == '1') dfs(grid, p_i, j);
+		if(grid[n_i][j] == '1') dfs(grid, n_i, j);
+		if(grid[i][p_j] == '1') dfs(grid, i, p_j);
+		if(grid[i][n_j] == '1') dfs(grid, i, n_j);
+	}
 };
