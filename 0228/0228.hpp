@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:27
+ * @LastEditTime: 2020-11-10 13:52:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0228\0228.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -16,21 +17,30 @@ using namespace std;
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    vector<string> summaryRanges(vector<int>& nums) {
+		auto left = 0;
+		auto right = 1;
+		vector<string> ret;
+		if(nums.size() == 0) return ret;
+		if(nums.size() == 1) return ret.push_back(to_string(nums[0])), ret;
+		while(right < nums.size()) {
+			if(nums[right] - nums[left] != (right - left)) {
+				if(right - left == 1) {
+					ret.push_back(to_string(nums[left]));				
+				}
+				else {
+					ret.push_back(to_string(nums[left]) + "->" + to_string(nums[right - 1]));
+				}
+				left = right;
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+			right += 1;
 		}
-		return result;
+		if(right - left == 1) {
+			ret.push_back(to_string(nums[left]));				
+		}
+		else {
+			ret.push_back(to_string(nums[left]) + "->" + to_string(nums[right - 1]));
+		}
+		return ret;
     }
 };
