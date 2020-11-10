@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:26
+ * @LastEditTime: 2020-11-10 10:52:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0119\0119.hpp
  */
+
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -16,21 +17,15 @@ using namespace std;
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
+    vector<int> getRow(int rowIndex) {
+		vector<int> ret(rowIndex + 1, 1);
+        if(rowIndex == 0) return vector<int>(1, 1);
+        if(rowIndex == 1) return vector<int>(2, 1);
+		for(int i = 2; i <= rowIndex; ++i) {
+			for(int j = i - 1; j > 0; --j) {
+				ret[j] += ret[j - 1];
 			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
 		}
-		return result;
+       	return ret;
     }
 };
