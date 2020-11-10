@@ -1,11 +1,13 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-09-30 14:37:46
+ * @Date: 2020-10-14 16:04:27
+ * @LastEditTime: 2020-11-10 14:35:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\0303\0303.hpp
  */
+
+#include <map>
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -14,23 +16,41 @@
 
 using namespace std;
 
-class Solution {
+class NumArray {
 public:
-    int lengthOfLongestSubstring(string s) {
-		int temp = 0;
-		int result = 0;
-		int size = s.size();
-		unordered_set<char> sub;
-		int next = -1;
-		for (int i = 0; i < size; ++i) {
-			if (0 != i) {
-				sub.erase(s[i - 1]);
-			}
-			while ((next < size - 1) && (!sub.count(s[next + 1]))) {
-				sub.insert(s[(next++) + 1]);
-			}
-			result = max(next - i + 1, result);
+    NumArray(vector<int>& nums) {
+		v = nums;
+		inter.resize(nums.size() + 1);
+		inter[0] = 0;
+		for(int i = 0; i < nums.size(); ++i) {
+			inter[i + 1] += inter[i] + nums[i];
 		}
-		return result;
     }
+    
+    int sumRange(int i, int j) {		
+		return inter[j + 1] - inter[i];
+    }
+private:
+	vector<int> v;
+	vector<int> inter;
 };
+
+// class NumArray {
+// public:
+//     NumArray(vector<int>& nums) {
+// 		v = nums;
+//     }
+    
+//     int sumRange(int i, int j) {		
+// 		auto key = pair(i, j);
+// 		if(0 != m.count(pair(i, j))) return m[key];
+// 		int sum = 0;
+// 		for(int index = i; index <= j; ++index) {
+// 			sum += v[index];
+// 		}
+// 		return m[key] = sum, sum;
+//     }
+// private:
+// 	vector<int> v;
+// 	map<pair<int, int>, int> m;
+// };
