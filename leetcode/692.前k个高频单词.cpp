@@ -1,23 +1,18 @@
 /*
  * @Author: your name
- * @Date: 2020-10-14 16:04:30
- * @LastEditTime: 2020-11-11 17:58:58
+ * @Date: 2020-11-11 17:18:19
+ * @LastEditTime: 2020-11-11 17:57:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\0692\0692.hpp
+ * @FilePath: \leetcode\leetcode\692.前k个高频单词.cpp
+ */
+/*
+ * @lc app=leetcode.cn id=692 lang=cpp
+ *
+ * [692] 前K个高频单词
  */
 
-#include <map>
-#include <cmath>
-#include <queue>
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <unordered_set>
-#include <unordered_map>
-
-using namespace std;
-
+// @lc code=start
 struct is {
 	is(int _i, string _s) {
 		i = _i;
@@ -53,3 +48,5 @@ public:
 		return ret;
     }
 };
+// @lc code=end
+
