@@ -1,12 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 16:04:26
- * @LastEditTime: 2020-10-19 18:20:40
+ * @LastEditTime: 2020-11-11 11:17:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \leetcode\0145\0145.hpp
  */
 #include <cmath>
+#include <stack>
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -37,4 +38,30 @@ private:
 		post_order(root->right, v);
 		v.push_back(root->val);		
 	}
+};
+
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ret;
+		stack<TreeNode*> stk;
+        if(root == nullptr) return ret;
+        stk.push(root);
+		while(!stk.empty()) {
+			auto node = stk.top();
+			if(node == nullptr) {
+				stk.pop();
+				auto n = stk.top();
+				stk.pop();
+				ret.push_back(n->val);
+			} else {
+				stk.pop();            
+				stk.push(node);                
+				stk.push(nullptr);                
+				if(node->right != nullptr) stk.push(node->right);
+				if(node->left != nullptr) stk.push(node->left);            
+			}
+		}
+		return ret; 
+    }
 };
