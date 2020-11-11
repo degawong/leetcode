@@ -1,21 +1,20 @@
 /*
  * @Author: your name
- * @Date: 2020-10-14 16:04:28
- * @LastEditTime: 2020-11-11 13:42:11
- * @LastEditors: Please set LastEditors
+ * @Date: 2020-11-11 13:34:26
+ * @LastEditTime: 2020-11-11 13:42:25
+ * @LastEditors: your name
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\0429\0429.hpp
+ * @FilePath: \leetcode\leetcode\429.n叉树的层序遍历.cpp
+ */
+/*
+ * @lc app=leetcode.cn id=429 lang=cpp
+ *
+ * [429] N叉树的层序遍历
  */
 
-#include <cmath>
-#include <queue>
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <unordered_set>
-
-using namespace std;
-
+// @lc code=start
+/*
+// Definition for a Node.
 class Node {
 public:
     int val;
@@ -32,7 +31,7 @@ public:
         children = _children;
     }
 };
-
+*/
 
 class Solution {
 public:
@@ -54,6 +53,8 @@ public:
 			}
 			ret.push_back(element);
 		}
-		return ret;
+		return ret;  
     }
 };
+// @lc code=end
+
