@@ -57,7 +57,8 @@
 			"xutility": "cpp",
 			"set": "cpp",
 			"unordered_map": "cpp",
-			"queue": "cpp"
+			"queue": "cpp",
+			"sstream": "cpp"
 		}
 	}
 }
