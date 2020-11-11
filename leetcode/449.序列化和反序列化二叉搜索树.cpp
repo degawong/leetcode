@@ -1,27 +1,27 @@
 /*
  * @Author: your name
- * @Date: 2020-09-30 14:33:38
- * @LastEditTime: 2020-11-11 14:16:17
+ * @Date: 2020-11-11 13:50:46
+ * @LastEditTime: 2020-11-11 14:09:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\003.cpp
+ * @FilePath: \leetcode\leetcode\449.序列化和反序列化二叉搜索树.cpp
  */
-#include <cmath>
-#include <string>
-#include <sstream>
-#include <iostream>
-#include <algorithm>
-#include <unordered_set>
+/*
+ * @lc app=leetcode.cn id=449 lang=cpp
+ *
+ * [449] 序列化和反序列化二叉搜索树
+ */
 
-using namespace std;
-
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
- 
+// @lc code=start
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Codec {
 public:
 
@@ -40,10 +40,18 @@ public:
         node->right = rebuildTree(ss);
         return node;
     }
-    
     // Decodes your encoded data to tree.  
     TreeNode* deserialize(string data) {
         stringstream ss(data);
         return rebuildTree(ss);
     }
 };
+
+// Your Codec object will be instantiated and called as such:
+// Codec* ser = new Codec();
+// Codec* deser = new Codec();
+// string tree = ser->serialize(root);
+// TreeNode* ans = deser->deserialize(tree);
+// return ans;
+// @lc code=end
+
