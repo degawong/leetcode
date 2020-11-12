@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-27 10:16:51
- * @LastEditTime: 2020-10-27 10:30:34
+ * @LastEditTime: 2020-11-12 09:47:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \leetcode\leetcode\230.二叉搜索树中第k小的元素.cpp
@@ -27,15 +27,16 @@
 class Solution {
 public:
     int kthSmallest(TreeNode* root, int k) {
-        inorder(root);
+        inorder(root, k);
 		return v[k - 1]->val;
     }
 private:
-	void inorder(TreeNode* node) {
+	void inorder(TreeNode* node, int k) {
 		if(node == nullptr) return;
-		inorder(node->left);
+		inorder(node->left, k);
 		v.push_back(node);
-		inorder(node->right);
+		if(v.size() == k) return;
+		inorder(node->right, k);
 	}
 private:
 	vector<TreeNode*> v;
