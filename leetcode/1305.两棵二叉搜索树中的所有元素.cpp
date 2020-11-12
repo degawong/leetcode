@@ -1,29 +1,27 @@
 /*
  * @Author: your name
- * @Date: 2020-10-14 16:04:33
- * @LastEditTime: 2020-11-12 14:29:18
+ * @Date: 2020-11-12 13:34:50
+ * @LastEditTime: 2020-11-12 14:29:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\1305\1305.hpp
+ * @FilePath: \leetcode\leetcode\1305.两棵二叉搜索树中的所有元素.cpp
+ */
+/*
+ * @lc app=leetcode.cn id=1305 lang=cpp
+ *
+ * [1305] 两棵二叉搜索树中的所有元素
  */
 
-#include <cmath>
-#include <queue>
-#include <stack>
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <unordered_set>
-
-using namespace std;
-
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
+// @lc code=start
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
     vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
@@ -83,20 +81,6 @@ public:
 		}
 		return ret;
     }
-private:
-	// void dfs(TreeNode* root1, TreeNode* root2) {
-	// 	if(root1 == nullptr && root2 == nullptr) return;
-	// 	if(root1 == nullptr) {
-	// 		dfs(nullptr, root2->left);
-	// 		ret.push_back(root2->val);
-	// 		dfs(nullptr, root2->right);
-	// 	} else if (root2 == nullptr) {
-	// 		dfs(nullptr, root1->left);
-	// 		ret.push_back(root1->val);
-	// 		dfs(nullptr, root1->right);
-	// 	} else {
-			
-	// 	}
-	// }
-	// vector<int> ret;
 };
+// @lc code=end
+
