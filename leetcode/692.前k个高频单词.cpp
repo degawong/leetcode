@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-11-11 17:18:19
- * @LastEditTime: 2020-11-11 17:57:50
+ * @LastEditTime: 2020-11-12 09:09:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \leetcode\leetcode\692.前k个高频单词.cpp
@@ -18,6 +18,9 @@ struct is {
 		i = _i;
 		s = _s;
 	}
+	bool operator< (const is& r) {
+		return ((i > r.i) || (i == r.i && s < r.s));
+	}	
 	int i;
 	string s;
 };

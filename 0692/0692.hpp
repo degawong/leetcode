@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 16:04:30
- * @LastEditTime: 2020-11-11 17:58:58
+ * @LastEditTime: 2020-11-12 09:08:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \leetcode\0692\0692.hpp
@@ -22,6 +22,9 @@ struct is {
 	is(int _i, string _s) {
 		i = _i;
 		s = _s;
+	}
+	bool operator< (const is& r) {
+		return ((i > r.i) || (i == r.i && s < r.s));
 	}
 	int i;
 	string s;
