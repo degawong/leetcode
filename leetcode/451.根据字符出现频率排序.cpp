@@ -1,23 +1,18 @@
 /*
  * @Author: your name
- * @Date: 2020-10-14 16:04:29
- * @LastEditTime: 2020-11-16 16:27:09
+ * @Date: 2020-11-16 16:08:59
+ * @LastEditTime: 2020-11-16 16:29:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\0451\0451.hpp
+ * @FilePath: \leetcode\leetcode\451.根据字符出现频率排序.cpp
+ */
+/*
+ * @lc app=leetcode.cn id=451 lang=cpp
+ *
+ * [451] 根据字符出现频率排序
  */
 
-#include <set>
-#include <cmath>
-#include <queue>
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <unordered_set>
-#include <unordered_map>
-
-using namespace std;
-
+// @lc code=start
 class Solution {
 public:
     string frequencySort(string s) {
@@ -51,3 +46,5 @@ private:
 		}
 	};
 };
+// @lc code=end
+
