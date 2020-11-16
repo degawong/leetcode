@@ -1,22 +1,18 @@
 /*
  * @Author: your name
- * @Date: 2020-10-14 16:04:28
- * @LastEditTime: 2020-11-16 15:25:00
+ * @Date: 2020-11-16 14:49:49
+ * @LastEditTime: 2020-11-16 15:26:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\0347\0347.hpp
+ * @FilePath: \leetcode\leetcode\347.前-k-个高频元素.cpp
+ */
+/*
+ * @lc app=leetcode.cn id=347 lang=cpp
+ *
+ * [347] 前 K 个高频元素
  */
 
-#include <cmath>
-#include <queue>
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <unordered_set>
-#include <unordered_map>
-
-using namespace std;
-
+// @lc code=start
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
@@ -55,3 +51,5 @@ private:
 		}
 	};
 };
+// @lc code=end
+
