@@ -1,20 +1,18 @@
 /*
  * @Author: your name
- * @Date: 2020-10-14 16:04:30
- * @LastEditTime: 2020-11-16 16:56:32
- * @LastEditors: Please set LastEditors
+ * @Date: 2020-11-16 16:40:57
+ * @LastEditTime: 2020-11-16 16:56:41
+ * @LastEditors: your name
  * @Description: In User Settings Edit
- * @FilePath: \leetcode\0744\0744.hpp
+ * @FilePath: \leetcode\leetcode\744.寻找比目标字母大的最小字母.cpp
+ */
+/*
+ * @lc app=leetcode.cn id=744 lang=cpp
+ *
+ * [744] 寻找比目标字母大的最小字母
  */
 
-#include <cmath>
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <unordered_set>
-
-using namespace std;
-
+// @lc code=start
 class Solution {
 public:
     char nextGreatestLetter(vector<char>& letters, char target) {
@@ -30,3 +28,5 @@ public:
 		return letters[left];
     }
 };
+// @lc code=end
+
