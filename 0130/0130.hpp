@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-14 16:04:26
- * @LastEditTime: 2020-11-16 17:47:47
+ * @LastEditTime: 2020-11-17 10:18:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \leetcode\0130\0130.hpp
@@ -16,7 +16,6 @@
 using namespace std;
 
 class Solution {
-public:
 public:
     void dfs(vector<vector<char>>& board, int i, int j) {
         if(board[i][j] == 'O') board[i][j] = 'X';
