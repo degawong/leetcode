@@ -45,7 +45,7 @@ struct TreeNode {
 //     // Decodes your encoded data to tree.
 //     TreeNode* deserialize(string data) {
 //         stringstream ss(data);
-// 		return build_tree(ss);
+// 		   return build_tree(ss);
 //     }
 // };
 
@@ -77,7 +77,7 @@ public:
 
     TreeNode* deserialize(string data) {
 		string temp;
-		int index = 0;		
+		int index = 0;
 		vector<string> vs;
 		queue<TreeNode*> q;
 		stringstream ss(data);
