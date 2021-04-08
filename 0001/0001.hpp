@@ -20,8 +20,8 @@ public:
     vector<int> twoSum(vector<int>& nums, int target) {
 		vector<int> ret;
 		for(int i = 0; i < nums.size(); ++i) {
-			auto _2 = equal(nums, i + 1, target - nums[i]);
-			if(_2 != -1) {
+			auto 2 = equal(nums, i + 1, target - nums[i]);
+			if(2 != -1) {
 				ret.push_back(i);
 				ret.push_back(_2);
 				break;
